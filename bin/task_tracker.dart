@@ -25,4 +25,13 @@ void main(List<String> arguments) async {
   final user = User(name: name, email: email, password: password);
   await userStorage.registerUser(user);
   print('User registered successfully!');
+
+  final loggedInUser = await userStorage.login(email, password);
+
+  if (loggedInUser == null) {
+    print('Invalid email or password');
+    return;
+  }
+
+  print('\nWelcome back, ${loggedInUser.name}!\n');
 }
