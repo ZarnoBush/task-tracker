@@ -31,8 +31,16 @@ class UserStorage {
     final contents = await file.readAsString();
     final List<dynamic> jsonData = jsonDecode(contents);
 
-    return jsonData
-        .map((json) => User.fromJson(json))
-        .toList();
+    return jsonData.map((json) => User.fromJson(json)).toList();
+  }
+
+  Future<User?> findByEmail(String email) async {
+    final users = await getUsers();
+
+    try {
+      return users.firstWhere((user) => user.email == email);
+    } catch (e) {
+      return null;
+    }
   }
 }
