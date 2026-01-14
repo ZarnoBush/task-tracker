@@ -7,7 +7,7 @@ import 'package:task_tracker/utils/input_helper.dart';
 void main(List<String> arguments) async {
   print("Welcome to Task Tracker!\nTo Get Started");
 
-  final userStorage = UserService(UserStorage());
+  final userService = UserService(UserStorage());
 
   final name = InputHelper.read(
     label: 'Enter Name: ',
@@ -23,10 +23,10 @@ void main(List<String> arguments) async {
   );
 
   final user = User(name: name, email: email, password: password);
-  await userStorage.registerUser(user);
+  await userService.registerUser(user);
   print('User registered successfully!');
 
-  final loggedInUser = await userStorage.login(email, password);
+  final loggedInUser = await userService.login(email, password);
 
   if (loggedInUser == null) {
     print('Invalid email or password');
